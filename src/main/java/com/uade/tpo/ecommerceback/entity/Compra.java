@@ -1,39 +1,38 @@
 package com.uade.tpo.ecommerceback.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
-
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
+
 @Data
-@Table(name = "compras")
+
 public class Compra {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCompra;
+    private Integer id;
 
     @Column(nullable = false)
     private LocalDate fecha;
 
-    @Column(nullable = false, length = 50)
-    private String usuario;
-
     @Column(nullable = false)
     private double monto;
 
-    @Column(nullable = false)
-    private double descuento;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_descuento")
-    private Descuento descuentoAplicado;
+    @JoinColumn(name = "descuentos")
+    private Descuento descuentos;
+
+    @ManyToOne
+    @JoinColumn(name = "items_compra")
+    private ItemCompra items_compra;
+
+    @OneToMany(mappedBy = "compra")
+    private List<ItemCompra> items;
 }
