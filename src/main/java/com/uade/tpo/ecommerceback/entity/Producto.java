@@ -1,12 +1,6 @@
 package com.uade.tpo.ecommerceback.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -29,7 +23,57 @@ public class Producto {
     @OneToOne(mappedBy = "producto")
     private ItemCompra producto;
 
-    @OneToOne
+
+    @ManyToOne // Muchos productos pueden pertenecer a una categoría
     @JoinColumn(name = "categoria_id", referencedColumnName = "id")
     private Categoria categoria;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public ItemCompra getProducto() {
+        return producto;
+    }
+
+    public void setProducto(ItemCompra producto) {
+        this.producto = producto;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 }
