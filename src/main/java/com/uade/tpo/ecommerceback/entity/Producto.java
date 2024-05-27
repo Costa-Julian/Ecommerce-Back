@@ -26,6 +26,9 @@ public class Producto {
     @Column(nullable = false)
     private Double precio;
 
+    @OneToOne(mappedBy = "producto")
+    private ItemCompra producto;
+
     @OneToOne
     @JoinColumn(name = "categoria_id", referencedColumnName = "id")
     private Categoria categoria;

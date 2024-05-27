@@ -17,9 +17,6 @@ public class ItemCompra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idItem;
 
-    @Column(nullable = false, length = 100)
-    private String producto;
-
     @Column(nullable = false)
     private double precioUnitario;
 
@@ -32,4 +29,8 @@ public class ItemCompra {
     @ManyToOne
     @JoinColumn(name = "compra_id")
     private Compra compra;
+
+    @OneToOne
+    @JoinColumn(name = "producto_id", referencedColumnName = "id")
+    private Producto producto;
 }
