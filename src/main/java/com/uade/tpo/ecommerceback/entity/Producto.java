@@ -23,11 +23,9 @@ public class Producto {
     @OneToOne(mappedBy = "producto")
     private ItemCompra producto;
 
-
-    @ManyToOne // Muchos productos pueden pertenecer a una categoría
+    @ManyToOne
     @JoinColumn(name = "categoria_id", referencedColumnName = "id")
     private Categoria categoria;
-
 
     public Long getId() {
         return id;

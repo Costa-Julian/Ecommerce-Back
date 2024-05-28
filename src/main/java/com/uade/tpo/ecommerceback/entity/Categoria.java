@@ -17,7 +17,7 @@ public class Categoria {
     private String nombre;
 
     @OneToOne(mappedBy = "categoria", cascade = CascadeType.ALL)
-    @JsonIgnore // Ignorar la serialización de la relación en esta dirección
+    @JsonIgnore
     private Producto producto;
 
     public Long getId() {
