@@ -1,10 +1,8 @@
 package com.uade.tpo.ecommerceback.repository;
 
 import com.uade.tpo.ecommerceback.entity.Producto;
-import com.uade.tpo.ecommerceback.service.ProductoService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.uade.tpo.ecommerceback.controllers.configuration;
 
-import com.uade.tpo.ecommerceback.entity.TipoUsuario;
+import com.uade.tpo.ecommerceback.entity.Rol;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,8 +27,12 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req.requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/error/**").permitAll()
+                        .requestMatchers("/ping").permitAll()
                         .requestMatchers("/Producto/**").permitAll()
-                        .requestMatchers("/categories/**").hasAnyAuthority(TipoUsuario.class.descriptorString())
+                        .requestMatchers("/register").permitAll()
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/user/change").permitAll()
+                        .requestMatchers("/categories/**").hasAnyAuthority(Rol.class.descriptorString())
                         .anyRequest()
                         .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

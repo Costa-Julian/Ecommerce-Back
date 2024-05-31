@@ -1,7 +1,10 @@
 package com.uade.tpo.ecommerceback.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,9 +12,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+@Builder
 @Entity
-
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 
 public class Usuario implements UserDetails {
 
@@ -38,18 +43,38 @@ public class Usuario implements UserDetails {
     @OneToMany(mappedBy = "usuario")
     private List<Compra> compra;
 
-    @OneToOne
-    @JoinColumn(name = "rol_id", referencedColumnName = "id")
-    private TipoUsuario rol;
+    @Enumerated(EnumType.STRING)
+    Rol rol;
+    @Column(columnDefinition = "boolean default true")
+    boolean expiredAccount;
+    @Column(columnDefinition = "boolean default true")
+    boolean lockedAccount;
+    @Column(columnDefinition = "boolean default true")
+    boolean expiredCredentials;
+    @Column(columnDefinition = "boolean default true")
+    boolean enabled;
+
+    public void changeAccountStatus(boolean finalStatus){
+        setEnabled(finalStatus);
+    }
+    public void changeExpiredAccount(boolean finalStatus){
+        setExpiredAccount(finalStatus);
+    }
+    public void changeAccountLocked(boolean finalStatus){
+        setExpiredAccount(finalStatus);
+    }
+    public void changeExpiredCredentials(boolean finalStatus){
+        setExpiredAccount(finalStatus);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(rol.getDescription()));
+        return List.of(new SimpleGrantedAuthority(rol.name()));
     }
 
     @Override
     public String getPassword() {
-        return "";
+        return contrasenia;
     }
 
     @Override
@@ -59,21 +84,21 @@ public class Usuario implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return expiredAccount;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return lockedAccount;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return expiredCredentials;
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 }
