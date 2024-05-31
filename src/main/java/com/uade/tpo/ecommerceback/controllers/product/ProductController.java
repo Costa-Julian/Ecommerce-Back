@@ -44,7 +44,7 @@ public class ProductController {
         Page<Producto> pageProductos = new PageImpl<>(productos.subList(start, end), pageable, productos.size());
         return ResponseEntity.ok(pageProductos);
     }
- 
+
     @PostMapping("/Create")
     public ResponseEntity<Producto> createProducto(@RequestBody Producto producto) throws CategoryDuplicateException {
         Producto createdProducto = productoService.createProducto(producto);
