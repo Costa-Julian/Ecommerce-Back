@@ -2,6 +2,7 @@ package com.uade.tpo.ecommerceback.service;
 
 import com.uade.tpo.ecommerceback.entity.Categoria;
 import com.uade.tpo.ecommerceback.entity.Producto;
+import com.uade.tpo.ecommerceback.exceptions.CategoryDuplicateException;
 import com.uade.tpo.ecommerceback.exceptions.ProductoDuplicateExeption;
 import com.uade.tpo.ecommerceback.repository.ICategoriaRepository;
 import com.uade.tpo.ecommerceback.repository.IProductoRepository;
@@ -11,13 +12,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 public class ProductoService implements IProductoService{
     @Autowired
     private IProductoRepository productoRepository;
     @Autowired
-    private ICategoriaRepository categoriaRepository;
+    private ICategoriaService categoriaService;
 
     @Override
     public Page<Producto> findAll(PageRequest pr) {
@@ -30,10 +32,10 @@ public class ProductoService implements IProductoService{
     }
 
 
-    public Producto createProducto(Producto producto) {
-        Categoria categoria = producto.getCategoria();
-        if (categoria != null && categoria.getId() == null) {
-            categoria = categoriaRepository.save(categoria);
+    public Producto createProducto(Producto producto) throws CategoryDuplicateException {
+        Categoria categoria = categoriaService.getCategoryById(producto.getCategoria().getId()).orElse(null);
+        if (categoria == null) {
+            categoria = categoriaService.createCategory(producto.getCategoria().getNombre());
         }
         producto.setCategoria(categoria);
         Producto productoExistente = productoRepository.findFirstByNombre(producto.getNombre());
@@ -46,6 +48,11 @@ public class ProductoService implements IProductoService{
     @Override
     public Producto updateProducto(Producto producto) {
         return productoRepository.save(producto);
+    }
+
+    @Override
+    public List<Producto> findByCategoriaId(long idCategoria) {
+        return productoRepository.findAllByCategories(idCategoria);
     }
 
 }

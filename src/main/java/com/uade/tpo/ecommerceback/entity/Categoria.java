@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 public class Categoria {
@@ -23,9 +25,9 @@ public class Categoria {
     @Column(nullable = false)
     private String nombre;
 
-    @OneToOne(mappedBy = "categoria", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     @JsonIgnore
-    private Producto producto;
+    private List<Producto> producto;
 
     public Long getId() {
         return id;
@@ -43,11 +45,11 @@ public class Categoria {
         this.nombre = nombre;
     }
 
-    public Producto getProducto() {
+    public List<Producto> getProducto() {
         return producto;
     }
 
-    public void setProducto(Producto producto) {
+    public void setProducto(List<Producto> producto) {
         this.producto = producto;
     }
 }

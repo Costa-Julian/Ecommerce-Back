@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ICategoriaRepository extends JpaRepository<Categoria, Long> {
 
-    @Query(value = "select c from Categoria c where c.nombre = ?1")
+    @Query(value = "select c from Categoria c where LOWER(c.nombre) = LOWER(?1)")
     List<Categoria> findByNombre(String nombre);
 }
