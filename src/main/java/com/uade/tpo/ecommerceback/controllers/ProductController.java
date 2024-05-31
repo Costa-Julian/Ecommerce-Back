@@ -29,6 +29,7 @@ public class ProductController {
             return ResponseEntity.ok(productoService.findAll(PageRequest.of(0,Integer.MAX_VALUE)));
         return ResponseEntity.ok(productoService.findAll(PageRequest.of(page, size)));
     }
+
     @GetMapping("/categoria/{idCategoria}")
     public ResponseEntity<Page<Producto>> getAllProductByCategoria(
             @PathVariable Long idCategoria,

@@ -1,12 +1,15 @@
 package com.uade.tpo.ecommerceback.service.implementations;
 
 import com.uade.tpo.ecommerceback.entity.Categoria;
+import com.uade.tpo.ecommerceback.entity.Descuento;
 import com.uade.tpo.ecommerceback.entity.Producto;
 import com.uade.tpo.ecommerceback.exceptions.CategoryDuplicateException;
 import com.uade.tpo.ecommerceback.exceptions.ProductoDuplicateExeption;
 import com.uade.tpo.ecommerceback.repository.ICategoriaRepository;
+import com.uade.tpo.ecommerceback.repository.IDescuentoRepository;
 import com.uade.tpo.ecommerceback.repository.IProductoRepository;
 import com.uade.tpo.ecommerceback.service.ICategoriaService;
+import com.uade.tpo.ecommerceback.service.IDescuentoService;
 import com.uade.tpo.ecommerceback.service.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +27,8 @@ public class ProductoService implements IProductoService {
     private ICategoriaService categoriaService;
     @Autowired
     private  ICategoriaRepository iCategoriaRepository;
+    @Autowired
+    private IDescuentoService iDescuentoService;
 
     @Override
     public Page<Producto> findAll(PageRequest pr) {

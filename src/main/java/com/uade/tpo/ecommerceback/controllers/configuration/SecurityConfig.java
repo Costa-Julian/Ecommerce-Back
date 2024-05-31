@@ -35,6 +35,7 @@ public class SecurityConfig {
                         .requestMatchers("/categories/**").hasAnyAuthority(Rol.class.descriptorString())
                         .requestMatchers("/shoppingCart/**").permitAll()
                         .requestMatchers("/categories/**").permitAll()
+                        .requestMatchers("/descuento/**").permitAll()
                         .anyRequest()
                         .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

@@ -17,9 +17,11 @@ import lombok.Data;
 public class Descuento {
 
     @Id
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column
+    private String descripcion;
 
     @Column(nullable = false)
     private double porcentaje;
@@ -29,4 +31,12 @@ public class Descuento {
 
     @OneToMany(mappedBy = "descuentos")
     private List<Compra> descuentos;
+
+    public Descuento(String descripcion, double porcentaje, boolean habilitado) {
+        this.descripcion = descripcion;
+        this.porcentaje = porcentaje;
+        this.habilitado = habilitado;
+    }
+    public Descuento() {}
+
 }

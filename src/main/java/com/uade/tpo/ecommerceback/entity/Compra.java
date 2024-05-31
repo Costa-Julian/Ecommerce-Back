@@ -30,11 +30,6 @@ public class Compra {
     @JoinColumn(name = "descuentos")
     private Descuento descuentos;
 
-    @ManyToOne
-    @JoinColumn(name = "items_compra")
-    @JsonIgnore
-    private ItemCompra items_compra;
-
     @OneToMany(mappedBy = "compra")
     private List<ItemCompra> items;
 }
