@@ -1,4 +1,4 @@
-package com.uade.tpo.ecommerceback.controllers.auth;
+package com.uade.tpo.ecommerceback.Dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationRequestDto {
+public class UserNewPasswordDto {
     private String mail;
-    String contrasenia;
+    private String actualContrasenia;
+    private String nuevaContrasenia;
 }

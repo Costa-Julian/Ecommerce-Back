@@ -1,4 +1,4 @@
-package com.uade.tpo.ecommerceback.controllers.auth;
+package com.uade.tpo.ecommerceback.Dto;
 
 
 import com.uade.tpo.ecommerceback.entity.Rol;

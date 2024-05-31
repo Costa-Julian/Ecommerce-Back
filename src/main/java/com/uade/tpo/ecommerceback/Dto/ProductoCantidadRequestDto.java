@@ -1,6 +1,6 @@
-package com.uade.tpo.ecommerceback.controllers.product;
+package com.uade.tpo.ecommerceback.Dto;
 
-public class ProductoCantidadRequest {
+public class ProductoCantidadRequestDto {
     private Long idProducto;
     private int cantidad;
 

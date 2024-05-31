@@ -1,13 +1,13 @@
 package com.uade.tpo.ecommerceback.service;
 
-import com.uade.tpo.ecommerceback.controllers.auth.*;
+import com.uade.tpo.ecommerceback.Dto.*;
 
 public interface IAuthenticationService {
-    AuthenticationResponse authenticate(AuthenticationRequestDto request);
+    AuthenticationResponseDto authenticate(AuthenticationRequestDto request);
 
-    AuthenticationResponse register(UserAttributesRequestDto request);
+    AuthenticationResponseDto register(UserAttributesRequestDto request);
 
-    AuthenticationResponse login(AuthenticationRequestDto request);
+    AuthenticationResponseDto login(AuthenticationRequestDto request);
 
     MessageDto changeAccountData(UserNewPasswordDto request);
 }

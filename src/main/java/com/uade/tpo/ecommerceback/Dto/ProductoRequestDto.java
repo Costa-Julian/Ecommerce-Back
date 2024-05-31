@@ -1,9 +1,9 @@
-package com.uade.tpo.ecommerceback.controllers.product;
+package com.uade.tpo.ecommerceback.Dto;
 
 import lombok.Data;
 
 @Data
-public class ProductoRequest {
+public class ProductoRequestDto {
     private Long id;
     private String nombre;
     private String descripcion;
