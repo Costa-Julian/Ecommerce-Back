@@ -5,7 +5,7 @@ INSERT INTO usuario (id, nombre, apellido, documento, mail, contrasenia, rol, ex
 VALUES (2, 'Julian', 'Costa', 12345679, 'julian.costa@example.com', '$2a$10$3j4AmQ1RIdj5.NYrlgfAo.6M.kGE.kG0qKTymioaTOowB/CXp65Xq', 'ROLE_CLIENTE', true, true, true, true);
 
 INSERT INTO usuario (id, nombre, apellido, documento, mail, contrasenia, rol, expired_account, locked_account, expired_credentials, enabled)
-VALUES (3, 'Valentino', 'Argenziano', 12345680, 'valentino.argenziano@example.com', '$2a$10$3j4AmQ1RIdj5.NYrlgfAo.6M.kGE.kG0qKTymioaTOowB/CXp65Xq', 'ROLE_CLIENTE', true, true, true, true);
+VALUES (3, 'Valentino', 'Argenziano', 12345680, 'valentino.argenziano@example.com', '$2a$10$djs3s46Sv1s1wZccAfE.1OIWDZjkI0BogVnb3woMEt8tB7cwOK9vi', 'ROLE_VENDEDOR', true, true, true, true);
 
 INSERT INTO usuario (id, nombre, apellido, documento, mail, contrasenia, rol, expired_account, locked_account, expired_credentials, enabled)
 VALUES (4, 'Valentín', 'Campestri', 12345681, 'valentin.campestri@example.com', '$2a$10$3j4AmQ1RIdj5.NYrlgfAo.6M.kGE.kG0qKTymioaTOowB/CXp65Xq', 'ROLE_ADMIN', true, true, true, true);

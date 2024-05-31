@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -27,11 +28,16 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authRequest -> authRequest
                         .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers("/api/v1/auth/register").permitAll()
-                        /*.requestMatchers("/categories").permitAll()
-                        .requestMatchers("/categories/{categoryId}").permitAll()*/
                         .requestMatchers("/categories/create").hasRole("ADMIN")
-                        .requestMatchers("/descuento/**").hasRole("ADMIN")
+                        .requestMatchers("/descuento/create").hasRole("ADMIN")
+                        .requestMatchers("/producto/create").hasRole("VENDEDOR")
+                        .requestMatchers("/shoppingCart/crear").hasRole("CLIENTE")
+                        .requestMatchers("/categories").permitAll()
+                        .requestMatchers("/categories/{categoryId}").permitAll()
+                        .requestMatchers("/ping").permitAll()
+                        .requestMatchers("/producto/all").permitAll()
+                        .requestMatchers("/producto/categoria/{idCategoria}").permitAll()
+                        .requestMatchers("/producto/{id}").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement( sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

@@ -21,7 +21,7 @@ public class DescuentoController {
 
     @PostMapping("/create")
     public ResponseEntity<Descuento> createDescuento(@RequestBody DescuentoRequestDto descuento) {
-        Descuento nuevoDescuento =   descuentoService.createDescuento(descuento);
+        Descuento nuevoDescuento =  descuentoService.createDescuento(descuento);
         return new ResponseEntity<>(nuevoDescuento, HttpStatus.CREATED);
     }
 }
