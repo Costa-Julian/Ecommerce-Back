@@ -1,4 +1,4 @@
-package com.uade.tpo.ecommerceback.controllers.auth;
+package com.uade.tpo.ecommerceback.Dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
+public class AuthenticationResponseDto {
 
     @JsonProperty("access_token")
     private String accessToken;

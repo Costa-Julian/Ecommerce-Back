@@ -1,6 +1,6 @@
 package com.uade.tpo.ecommerceback.service.implementations;
 
-import com.uade.tpo.ecommerceback.controllers.auth.*;
+import com.uade.tpo.ecommerceback.Dto.*;
 import com.uade.tpo.ecommerceback.controllers.configuration.JwtService;
 import com.uade.tpo.ecommerceback.entity.Rol;
 import com.uade.tpo.ecommerceback.entity.Usuario;
@@ -27,7 +27,7 @@ public class AuthenticationService implements IAuthenticationService {
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$");
 
     @Override
-    public AuthenticationResponse authenticate(AuthenticationRequestDto request) {
+    public AuthenticationResponseDto authenticate(AuthenticationRequestDto request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getMail(),
@@ -36,13 +36,13 @@ public class AuthenticationService implements IAuthenticationService {
         var user = repository.findByMail(request.getMail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken((UserDetails) user);
-        return AuthenticationResponse.builder()
+        return AuthenticationResponseDto.builder()
                 .accessToken(jwtToken)
                 .build();
     }
 
     @Override
-    public AuthenticationResponse register(UserAttributesRequestDto request) {
+    public AuthenticationResponseDto register(UserAttributesRequestDto request) {
         if (!isPasswordValid(request.getContrasenia())) {
             throw new IllegalArgumentException("La contraseña no cumple con al menos una de las siguientes condiciones: 8 caracteres, 1 minúscula, 1 mayúscula y un número");
         }
@@ -62,17 +62,17 @@ public class AuthenticationService implements IAuthenticationService {
 
         repository.save(usuario);
 
-        return AuthenticationResponse.builder()
+        return AuthenticationResponseDto.builder()
                 .accessToken(jwtService.generateToken((UserDetails) usuario))
                 .build();
     }
 
     @Override
-    public AuthenticationResponse login(AuthenticationRequestDto request) {
+    public AuthenticationResponseDto login(AuthenticationRequestDto request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getMail(),request.getContrasenia()));
         UserDetails usuario = (UserDetails) repository.findByMail(request.getMail()).orElseThrow();
         String token = jwtService.generateToken(usuario);
-        return AuthenticationResponse.builder()
+        return AuthenticationResponseDto.builder()
                 .accessToken(token)
                 .build();
     }

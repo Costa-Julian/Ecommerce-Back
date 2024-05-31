@@ -1,18 +1,16 @@
 package com.uade.tpo.ecommerceback.controllers;
 
-import com.uade.tpo.ecommerceback.controllers.auth.AuthenticationRequestDto;
-import com.uade.tpo.ecommerceback.controllers.auth.UserAttributesRequestDto;
-import com.uade.tpo.ecommerceback.controllers.auth.UserNewPasswordDto;
+import com.uade.tpo.ecommerceback.Dto.AuthenticationRequestDto;
+import com.uade.tpo.ecommerceback.Dto.UserAttributesRequestDto;
+import com.uade.tpo.ecommerceback.Dto.UserNewPasswordDto;
 import com.uade.tpo.ecommerceback.service.IAuthenticationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/v1/auth")
 @AllArgsConstructor
 public class UserController {
 

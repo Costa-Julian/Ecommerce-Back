@@ -1,7 +1,7 @@
-package com.uade.tpo.ecommerceback.controllers.product;
+package com.uade.tpo.ecommerceback.controllers;
 
 import com.uade.tpo.ecommerceback.entity.Producto;
-import com.uade.tpo.ecommerceback.service.ProductoService;
+import com.uade.tpo.ecommerceback.service.implementations.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -15,13 +15,13 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("Producto")
+@RequestMapping("/producto")
 public class ProductController {
 
     @Autowired
     private ProductoService productoService;
 
-    @GetMapping("/All")
+    @GetMapping("/all")
     public ResponseEntity<Page<Producto>> getAllProductos(
             @RequestParam(required = false) Integer page,
             @RequestParam(required = false) Integer size) {
@@ -29,7 +29,7 @@ public class ProductController {
             return ResponseEntity.ok(productoService.findAll(PageRequest.of(0,Integer.MAX_VALUE)));
         return ResponseEntity.ok(productoService.findAll(PageRequest.of(page, size)));
     }
-    @GetMapping("/Categoria/{idCategoria}")
+    @GetMapping("/categoria/{idCategoria}")
     public ResponseEntity<Page<Producto>> getAllProductByCategoria(
             @PathVariable Long idCategoria,
             @RequestParam(defaultValue = "0") int page,
@@ -42,7 +42,7 @@ public class ProductController {
         return ResponseEntity.ok(pageProductos);
     }
 
-    @PostMapping("/Create")
+    @PostMapping("/create")
     public ResponseEntity<Producto> createProducto(@RequestBody Producto producto) {
         Producto createdProducto = productoService.createProducto(producto);
         return new ResponseEntity<>(createdProducto, HttpStatus.CREATED);

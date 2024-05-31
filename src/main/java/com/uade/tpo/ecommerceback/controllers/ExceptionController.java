@@ -1,6 +1,6 @@
 package com.uade.tpo.ecommerceback.controllers;
 
-import com.uade.tpo.ecommerceback.controllers.auth.MessageDto;
+import com.uade.tpo.ecommerceback.Dto.MessageDto;
 import com.uade.tpo.ecommerceback.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

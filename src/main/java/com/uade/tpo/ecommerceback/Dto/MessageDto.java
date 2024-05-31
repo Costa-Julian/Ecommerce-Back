@@ -1,4 +1,4 @@
-package com.uade.tpo.ecommerceback.controllers.auth;
+package com.uade.tpo.ecommerceback.Dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
