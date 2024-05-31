@@ -35,7 +35,7 @@ public class AuthenticationService implements IAuthenticationService {
 
         var user = repository.findByMail(request.getMail())
                 .orElseThrow();
-        var jwtToken = jwtService.generateToken((UserDetails) user);
+        var jwtToken = jwtService.getToken(user);
         return AuthenticationResponseDto.builder()
                 .accessToken(jwtToken)
                 .build();
@@ -63,7 +63,7 @@ public class AuthenticationService implements IAuthenticationService {
         repository.save(usuario);
 
         return AuthenticationResponseDto.builder()
-                .accessToken(jwtService.generateToken((UserDetails) usuario))
+                .accessToken(jwtService.getToken(usuario))
                 .build();
     }
 
@@ -71,7 +71,7 @@ public class AuthenticationService implements IAuthenticationService {
     public AuthenticationResponseDto login(AuthenticationRequestDto request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getMail(),request.getContrasenia()));
         UserDetails usuario = (UserDetails) repository.findByMail(request.getMail()).orElseThrow();
-        String token = jwtService.generateToken(usuario);
+        String token = jwtService.getToken(usuario);
         return AuthenticationResponseDto.builder()
                 .accessToken(token)
                 .build();

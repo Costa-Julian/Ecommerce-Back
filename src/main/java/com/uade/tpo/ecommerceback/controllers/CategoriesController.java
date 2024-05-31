@@ -39,7 +39,7 @@ public class CategoriesController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/Create")
+    @PostMapping("/create")
     public ResponseEntity<Object> createCategory(@RequestBody CategoriaRequestDto CategoriaRequestDto)
             throws CategoryDuplicateException {
         Categoria result = categoriaService.createCategory(CategoriaRequestDto.getNombre());
