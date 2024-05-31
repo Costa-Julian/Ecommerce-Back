@@ -1,4 +1,3 @@
-
 package com.uade.tpo.ecommerceback.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

@@ -1,9 +1,6 @@
 package com.uade.tpo.ecommerceback.controllers.product;
 
-import com.uade.tpo.ecommerceback.entity.Categoria;
 import com.uade.tpo.ecommerceback.entity.Producto;
-import com.uade.tpo.ecommerceback.exceptions.CategoryDuplicateException;
-import com.uade.tpo.ecommerceback.exceptions.ProductoDuplicateExeption;
 import com.uade.tpo.ecommerceback.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -46,9 +43,8 @@ public class ProductController {
     }
 
     @PostMapping("/Create")
-    public ResponseEntity<Producto> createProducto(@RequestBody Producto producto) throws CategoryDuplicateException {
+    public ResponseEntity<Producto> createProducto(@RequestBody Producto producto) {
         Producto createdProducto = productoService.createProducto(producto);
-
         return new ResponseEntity<>(createdProducto, HttpStatus.CREATED);
     }
     @GetMapping("/{id}")

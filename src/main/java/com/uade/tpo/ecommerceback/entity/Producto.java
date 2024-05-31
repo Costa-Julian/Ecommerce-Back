@@ -3,8 +3,6 @@ package com.uade.tpo.ecommerceback.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Optional;
-
 @Data
 @Entity
 public class Producto {

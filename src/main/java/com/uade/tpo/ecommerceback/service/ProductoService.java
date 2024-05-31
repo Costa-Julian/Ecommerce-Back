@@ -20,6 +20,8 @@ public class ProductoService implements IProductoService{
     private IProductoRepository productoRepository;
     @Autowired
     private ICategoriaService categoriaService;
+    @Autowired
+    private  ICategoriaRepository iCategoriaRepository;
 
     @Override
     public Page<Producto> findAll(PageRequest pr) {
@@ -32,10 +34,11 @@ public class ProductoService implements IProductoService{
     }
 
 
-    public Producto createProducto(Producto producto) throws CategoryDuplicateException {
+    public Producto createProducto(Producto producto) {
         Categoria categoria = categoriaService.getCategoryById(producto.getCategoria().getId()).orElse(null);
         if (categoria == null) {
-            categoria = categoriaService.createCategory(producto.getCategoria().getNombre());
+            Categoria c = new Categoria(producto.getCategoria().getNombre());
+            categoria = iCategoriaRepository.save(c);
         }
         producto.setCategoria(categoria);
         Producto productoExistente = productoRepository.findFirstByNombre(producto.getNombre());

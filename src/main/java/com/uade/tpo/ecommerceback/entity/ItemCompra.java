@@ -1,4 +1,3 @@
-
 package com.uade.tpo.ecommerceback.entity;
 
 import java.util.List;
