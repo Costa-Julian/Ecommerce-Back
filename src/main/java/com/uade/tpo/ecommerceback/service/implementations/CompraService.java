@@ -3,12 +3,14 @@ package com.uade.tpo.ecommerceback.service.implementations;
 import com.uade.tpo.ecommerceback.Dto.ProductoCantidadRequestDto;
 import com.uade.tpo.ecommerceback.Dto.CompraRequestDto;
 import com.uade.tpo.ecommerceback.entity.Compra;
+import com.uade.tpo.ecommerceback.entity.Descuento;
 import com.uade.tpo.ecommerceback.entity.ItemCompra;
 import com.uade.tpo.ecommerceback.entity.Producto;
 import com.uade.tpo.ecommerceback.repository.ICompraRepository;
 import com.uade.tpo.ecommerceback.repository.IItemCompraRepository;
 import com.uade.tpo.ecommerceback.repository.IProductoRepository;
 import com.uade.tpo.ecommerceback.service.ICompraService;
+import com.uade.tpo.ecommerceback.service.IDescuentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,8 @@ public class CompraService implements ICompraService {
     private IProductoRepository productoRepository;
     @Autowired
     private IItemCompraRepository compraItemRepository;
+    @Autowired
+    private IDescuentoService iDescuentoService;
     @Override
     public Compra GuardarCompra(CompraRequestDto compraRequestDto) {
         Compra compraSave = new Compra();
@@ -35,8 +39,16 @@ public class CompraService implements ICompraService {
             montoTotal += producto.getPrecio();
             productoList.add(producto);
         }
+
+        Descuento descuento = iDescuentoService.findByDescripcion(compraRequestDto.getDescuento());
+
+        if(descuento != null){
+            compraSave.setMonto(montoTotal - (montoTotal * descuento.getPorcentaje()/100));
+            compraSave.setDescuentos(descuento);
+        }else compraSave.setMonto(montoTotal);
+
         compraSave.setFecha(LocalDate.now());
-        compraSave.setMonto(montoTotal);
+
         compraSave = compraRepository.save(compraSave);
 
         for(Producto producto: productoList){

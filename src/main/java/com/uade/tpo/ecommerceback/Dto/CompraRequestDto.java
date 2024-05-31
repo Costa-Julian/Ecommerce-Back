@@ -1,12 +1,15 @@
 package com.uade.tpo.ecommerceback.Dto;
 
 import com.uade.tpo.ecommerceback.Dto.ProductoCantidadRequestDto;
+import lombok.Getter;
 
 import java.util.List;
 
 public class CompraRequestDto {
     private List<ProductoCantidadRequestDto> productoCantidadRequestDtos;
     private int idUser;
+    @Getter
+    private String descuento;
 
     public List<ProductoCantidadRequestDto> getProductoCantidadRequests() {
         return productoCantidadRequestDtos;
@@ -31,4 +34,5 @@ public class CompraRequestDto {
         }
         return 0;
     }
+
 }

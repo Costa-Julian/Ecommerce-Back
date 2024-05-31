@@ -27,8 +27,6 @@ public class ProductoService implements IProductoService {
     private ICategoriaService categoriaService;
     @Autowired
     private  ICategoriaRepository iCategoriaRepository;
-    @Autowired
-    private IDescuentoService iDescuentoService;
 
     @Override
     public Page<Producto> findAll(PageRequest pr) {

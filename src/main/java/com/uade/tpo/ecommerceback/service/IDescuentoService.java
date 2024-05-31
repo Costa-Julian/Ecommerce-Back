@@ -5,4 +5,5 @@ import com.uade.tpo.ecommerceback.entity.Descuento;
 
 public interface IDescuentoService {
     Descuento createDescuento(DescuentoRequestDto descuento);
+    Descuento findByDescripcion(String descrip);
 }

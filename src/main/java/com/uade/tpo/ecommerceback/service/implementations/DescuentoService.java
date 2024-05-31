@@ -15,4 +15,9 @@ public class DescuentoService implements IDescuentoService {
     public Descuento createDescuento(DescuentoRequestDto descuento) {
         return descuentoRepository.save(new Descuento(descuento.getDescripcion(),descuento.getPorcentaje(),true));
     }
+
+    @Override
+    public Descuento findByDescripcion(String descrip) {
+        return descuentoRepository.findFirstByDescripcion(descrip);
+    }
 }

@@ -2,6 +2,7 @@ package com.uade.tpo.ecommerceback.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +31,7 @@ public class Descuento {
     private boolean habilitado;
 
     @OneToMany(mappedBy = "descuentos")
+    @JsonIgnore
     private List<Compra> descuentos;
 
     public Descuento(String descripcion, double porcentaje, boolean habilitado) {
