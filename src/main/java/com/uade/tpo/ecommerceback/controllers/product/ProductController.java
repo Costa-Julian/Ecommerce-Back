@@ -34,7 +34,7 @@ public class ProductController {
             @PathVariable Long idCategoria,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        List<Producto> productos = productoService.findByCategoriaId(idCategoria);
+         List<Producto> productos = productoService.findByCategoriaId(idCategoria);
         Pageable pageable = PageRequest.of(page, size);
         int start = Math.min((int) pageable.getOffset(), productos.size());
         int end = Math.min((start + pageable.getPageSize()), productos.size());
