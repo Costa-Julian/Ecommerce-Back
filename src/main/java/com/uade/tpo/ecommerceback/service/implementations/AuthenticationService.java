@@ -47,6 +47,10 @@ public class AuthenticationService implements IAuthenticationService {
             throw new IllegalArgumentException("La contraseña no cumple con al menos una de las siguientes condiciones: 8 caracteres, 1 minúscula, 1 mayúscula y un número");
         }
 
+        if (repository.findByMail(request.getMail()).isPresent()) {
+            throw new IllegalArgumentException("Ya existe un usuario con este correo electrónico");
+        }
+
         Usuario usuario = Usuario.builder()
                 .nombre(request.getNombre())
                 .apellido(request.getApellido())
