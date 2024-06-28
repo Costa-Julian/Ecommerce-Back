@@ -5,8 +5,8 @@
   - GET: para traer el form creado
 
 -Se crearon 2 tablas:
-  -problemas
-  -imagenes
+  - problemas
+  - imagenes
   *cardinalidad de 1 a muchos, unidos por problem_id
 
 -Validaciones:
