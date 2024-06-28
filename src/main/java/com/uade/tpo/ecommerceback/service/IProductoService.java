@@ -10,8 +10,14 @@ import java.util.Optional;
 
 public interface IProductoService {
     public Page<Producto> findAll(PageRequest pr);
+
     public Optional<Producto> findById(long id);
+
     Producto updateProducto(Producto producto);
+
+    Producto updateProductoById(Long id, Producto producto);
+
     List<Producto> findByCategoriaId(long idCategoria);
+
     public Producto createProducto(Producto producto) throws ProductoDuplicateExeption;
 }

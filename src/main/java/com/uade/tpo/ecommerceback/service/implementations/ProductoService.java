@@ -11,6 +11,9 @@ import com.uade.tpo.ecommerceback.repository.IProductoRepository;
 import com.uade.tpo.ecommerceback.service.ICategoriaService;
 import com.uade.tpo.ecommerceback.service.IDescuentoService;
 import com.uade.tpo.ecommerceback.service.IProductoService;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class ProductoService implements IProductoService {
     @Autowired
@@ -26,7 +30,7 @@ public class ProductoService implements IProductoService {
     @Autowired
     private ICategoriaService categoriaService;
     @Autowired
-    private  ICategoriaRepository iCategoriaRepository;
+    private ICategoriaRepository iCategoriaRepository;
 
     @Override
     public Page<Producto> findAll(PageRequest pr) {
@@ -37,7 +41,6 @@ public class ProductoService implements IProductoService {
     public Optional<Producto> findById(long id) {
         return productoRepository.findById(id);
     }
-
 
     public Producto createProducto(Producto producto) {
         Categoria categoria = categoriaService.getCategoryById(producto.getCategoria().getId()).orElse(null);
@@ -50,12 +53,29 @@ public class ProductoService implements IProductoService {
         if (productoExistente == null) {
             return productoRepository.save(producto);
         }
-            productoExistente.setStock(productoExistente.getStock() + 1);
+        productoExistente.setStock(productoExistente.getStock() + 1);
         return updateProducto(productoExistente);
     }
+
     @Override
     public Producto updateProducto(Producto producto) {
         return productoRepository.save(producto);
+    }
+
+    public Producto updateProductoById(Long id, Producto producto) {
+        Optional<Producto> optionalProducto = productoRepository.findById(id);
+        if (optionalProducto.isPresent()) {
+            Producto existingProducto = optionalProducto.get();
+            existingProducto.setNombre(producto.getNombre());
+            existingProducto.setDescripcion(producto.getDescripcion());
+            existingProducto.setPrecio(producto.getPrecio());
+            existingProducto.setStock(producto.getStock());
+            existingProducto.setCategoria(producto.getCategoria());
+
+            return productoRepository.save(existingProducto);
+        } else {
+            throw new EntityNotFoundException("Producto no encontrado");
+        }
     }
 
     @Override

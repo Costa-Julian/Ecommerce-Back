@@ -11,37 +11,41 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtAuthenticationFilter jwtAuthFilter;
-    private final AuthenticationProvider authenticationProvider;
+        private final JwtAuthenticationFilter jwtAuthFilter;
+        private final AuthenticationProvider authenticationProvider;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authRequest -> authRequest
-                        .requestMatchers("/api/v1/auth/login").permitAll()
-                        .requestMatchers("/api/v1/auth/register").permitAll()
-                        .requestMatchers("/api/v1/auth/user/change").permitAll()
-                        .requestMatchers("/categories/create").hasRole("ADMIN")
-                        .requestMatchers("/descuento/create").hasRole("ADMIN")
-                        .requestMatchers("/producto/create").hasRole("VENDEDOR")
-                        .requestMatchers("/shoppingCart/crear").hasRole("CLIENTE")
-                        .requestMatchers("/categories").permitAll()
-                        .requestMatchers("/categories/{categoryId}").permitAll()
-                        .requestMatchers("/ping").permitAll()
-                        .requestMatchers("/producto/all").permitAll()
-                        .requestMatchers("/producto/categoria/{idCategoria}").permitAll()
-                        .requestMatchers("/producto/{id}").permitAll()
-                        .anyRequest().authenticated())
-                .sessionManagement( sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
-    }
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+                return httpSecurity
+                                .csrf(AbstractHttpConfigurer::disable)
+                                .authorizeHttpRequests(authRequest -> authRequest
+                                                .requestMatchers("/api/v1/auth/login").permitAll()
+                                                .requestMatchers("/api/v1/auth/register").permitAll()
+                                                .requestMatchers("/api/v1/auth/user/change").permitAll()
+                                                .requestMatchers("/categories/create").permitAll()
+                                                // .requestMatchers("/categories/create").hasRole("ADMIN")
+                                                .requestMatchers("/descuento/create").hasRole("ADMIN")
+                                                // .requestMatchers("/producto/create").hasRole("VENDEDOR")
+                                                .requestMatchers("/producto/create").permitAll()
+                                                .requestMatchers("/producto/update/{id}").permitAll()
+                                                .requestMatchers("/shoppingCart/crear").hasRole("CLIENTE")
+                                                .requestMatchers("/categories").permitAll()
+                                                .requestMatchers("/categories/{categoryId}").permitAll()
+                                                .requestMatchers("/ping").permitAll()
+                                                .requestMatchers("/producto/all").permitAll()
+                                                .requestMatchers("/producto/categoria/{idCategoria}").permitAll()
+                                                .requestMatchers("/producto/{id}").permitAll()
+                                                .anyRequest().authenticated())
+                                .sessionManagement(
+                                                sessionManager -> sessionManager
+                                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                .authenticationProvider(authenticationProvider)
+                                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                                .build();
+        }
 }
